@@ -1,0 +1,3 @@
+app.js ka khali itna kaam hota hai server ka instance create karna 
+and saare important middelware ko use karna 
+and jo bhi jitne bhi routes hai unhe pehele iss file mein intiate karna 

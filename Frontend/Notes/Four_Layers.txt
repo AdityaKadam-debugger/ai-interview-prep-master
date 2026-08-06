@@ -1,0 +1,40 @@
+Frontend engineering mein data flow, states aur rendering ko handle karne ke liye poore architecture ko 4 main layers mein divide kiya jata hai. Jab tumhara project bada hone lagta hai, tab saara code ek hi component mein likhne ke bajay in layers mein todna zaroorii ho jata hai taaki code maintainable aur clean rahe.
+
+Chalo in chaaro layers ko aasan bhasha mein samajhte hain:
+
+1. UI Layer (The Presentational Layer)
+Yeh layer wahi hai jo user ko screen par dikhti hai. Iska kaam sirf aur sirf HTML/JSX elements ko render karna aur styling dikhana hota hai.
+
+Responsibility: Data ko screen par display karna aur user inputs (clicks, text typing) ko capture karna.
+
+Property: Yeh layer ideally "Dumb" (Stateless) honi chahiye. Isme koi complex business logic ya direct API calls nahi honi chahiye. Isko jo data upar se milta hai, ye bas use sundar tarike se dikha deti hai (jaise jo Login aur Register pages humne banaye).
+
+2. Hook Layer (The State & Logic Controller Layer)
+React mein Custom Hooks (useLogin, useAuth) is layer ka hissa hain. Yeh UI layer aur backend data ke beech ka bridge (pull) hote hain.
+
+Responsibility: UI ke andar chalne wale saare functions (jaise handleSubmit), local states (useState), aur side effects (useEffect) ko handle karna.
+
+Property: Agar tumhein login form ka logic kisi dusre page par bhi reuse karna hai, toh tum poori UI copy nahi karoge, bas is Hook ko wahan import kar loge. Yeh UI ko logic se alag rakhta hai.
+
+3. Store / State Management Layer (The Global Memory)
+Jab application badi hoti hai, toh kuch data (jaise User Profile, Login Token, Theme) poore app mein har jagah chahiye hota hai. Uske liye hum Redux Toolkit, Zustand, ya React Context use karte hain, jo is layer mein aate hain.
+
+Responsibility: Poore application ka Global State (Memory) manage karna.
+
+Property: Jab Hook layer data fetch karti hai, toh woh is Store mein daal deti hai taaki App ka koi bhi dusra component (jaise Navbar ya Dashboard) use access kar sake.
+
+4. Service / Network Layer (The Data Fetcher)
+Yeh frontend ki aakhri layer hoti hai jo seedhe tumhare Backend API/Server se baat karti hai. Isme Axios ya Fetch API ka use kiya jata hai.
+
+Responsibility: External endpoints par GET, POST requests bhejna aur raw data lekar aana.
+
+Property: Is layer ko farq nahi padta ki UI par kya chal raha hai. Iska kaam bas endpoint hit karna, error handle karna (jaise 404 ya 500), aur data return karna hai.
+
+🛠️ Real Life Example se samjho (Login Process)
+UI Layer: User ne Email aur Password daal kar "Sign In" button par click kiya. UI ne event capture kiya aur Hook ko pass kar diya.
+
+Hook Layer: Hook ne validation check kiya ki email sahi format mein hai ya nahi, aur loading state ko true kiya. Phir isne Service layer ko call kiya.
+
+Store Layer: Hook ne woh user data aur token uthakar Global Store (Redux/Zustand) mein save kar diya taaki user logged-in rahe. UI ne loading false karke user ko Dashboard par bhej diya.
+
+Service Layer: Isne Axios se backend ko /api/login par request bheji. Backend se success response aur token aaya.

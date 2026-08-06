@@ -1,0 +1,28 @@
+                                Require Mongoose 
+                                        |
+                                Require usermodel
+                                        |
+                                Bcrypt for hashing
+                                        |
+                                Cookie-paser for Cookies
+                                        |
+                                  JsonWeb Token
+
+
+                                  Logics
+                                     |
+                         Deconstruct All The Credentials
+                                     |
+                        Check Whether Everything is Recieved by the server
+                                     |
+                        Check Whether All The extra Essentail Credentials Already exits in the base 
+                                     |
+                        HASH THE PASSWORD THOUROUGHLY
+                                     |
+                              CREATE A USER
+                                     |
+                                Make A Token Assign it
+                                     |
+                                Set It in the cookie 
+                                     |
+                                Send The Response   
